@@ -17,7 +17,7 @@ Azure Cosmos DBはフルマネージドなNoSQLデータベースです。
 * Gremlin API
 * Table API
 
-![CosmosのデータモデルとAPIの関係](./media/cosmos_datamodel_and_api.png | width=100)
+![CosmosのデータモデルとAPIの関係](./media/cosmos_datamodel_and_api.png)
 
 SQL(Core) APIは、Azure Cosmos DBネイティブなAPIで、RDBMSのSQLのようなAPIを提供します。JSONを扱うのに最適です。Table APIは、データのKey/value形式で格納しAzure Table Storageからの移行にも適しています。
 
@@ -29,7 +29,7 @@ Cassandra API, MongoDB API, Gremlin APIはこれらのOSS製品と互換性の�
 
 ## 一貫性モデル
 
-![読み取り一貫性モデル](./media/five-consistency-levels.png | witdh=100)
+![読み取り一貫性モデル](./media/five-consistency-levels.png)
 
 | 整合性レベル | | 保証内容|
 |---|---|---|
@@ -47,7 +47,7 @@ Cassandra API, MongoDB API, Gremlin APIはこれらのOSS製品と互換性の�
 Azure Cosmos DBは、パーティション分割してデータベースの個別のコンテナをスケーリングしパフォーマンスのニーズを満たします。
 
 論理パーティションは同じパーティションキーをもつ一連のアイテムで構成されます。コンテナ内の論理パーティション数に制限はなく、各論理パーティションには最大20GBのデータを格納できます。
-![論理パーティション](./media/logical_partitions.png |width=100)
+![論理パーティション](./media/logical_partitions.png)
 ```
 論理パーティション
 同一パーティションキーのアイテムが保持される
@@ -59,7 +59,7 @@ Azure Cosmos DBは、パーティション分割してデータベースの個�
 
 物理パーティション間でデータとスループットを分散することでスケーリングされます。内部的には、一つまたは複数の論理パーティションが単一の物理パーティションにマッピングされます。
 
-![物理パーティション](./media/pysical_partitions.png | width=100)
+![物理パーティション](./media/pysical_partitions.png)
 
 ```
 物理パーティション
