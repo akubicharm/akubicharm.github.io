@@ -56,9 +56,7 @@ Azure Cosmos DBは、パーティション分割してデータベースの個�
 
 ![物理パーティション](./media/pysical_partitions.png)
 
-
-
-
+＃ 参考リンク
 
 https://docs.microsoft.com/ja-jp/azure/cosmos-db/
 
