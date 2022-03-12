@@ -24,7 +24,7 @@ SQL(Core) APIは、Azure Cosmos DBネイティブなAPIで、RDBMSのSQLのよ�
 Cassandra API, MongoDB API, Gremlin APIはこれらのOSS製品と互換性のあるAPIを提供しています。すでにこれらを利用している場合には、Azure Cosmos DBに移行してそのまま使うことができます。
 
 どれを使うか迷った場合は、このフローチャートにしたがって考えてみましょう。
-![CosmosDBのAPI選択フローチャート](./media/cosmos_db_apiselection_chart.png | width = 100)
+![CosmosDBのAPI選択フローチャート](./media/cosmos_db_apiselection_chart.png)
 
 
 ## 一貫性モデル
