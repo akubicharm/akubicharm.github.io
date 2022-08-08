@@ -1,5 +1,8 @@
 # Azure Container Appsでのカスタムドメインの設定
 
+Azure Container Appsでは、1つ以上のカスタムドメインをバインドできる。カスタムドメインを利用するには、Ingressを有効にしておく必要がある。SNIの証明書が必要となり、この証明書は個別のContainer Apps または Container Apps Envで管理可能で、
+個別のContainer Appsに対してカスタムドメイン、証明書を設定した場合もContainer Apps Envの管理画面のCertificateセクションからも管理ができる。
+
 
 ## 1. Azure DNS Zoneの作成
 
