@@ -27,7 +27,7 @@ psqlコマンドでの接続方法は、AzureポータルのAzure Database for P
 * ./tool/dataLoad.sh
 
 
-* init.sql
+init.sql
 ```
 create table if not exists todo_item (
   id serial primary key,
@@ -39,7 +39,7 @@ create table if not exists todo_item (
 insert into todo_item (description, title, finished) values('desc', 'title', false);
 ```
 
-* dataLoad.sh
+dataLoad.sh
 ``` 
 #!/bin/sh
 DBNAME=[DB名]
@@ -48,7 +48,7 @@ PASSWORD=[パスワード]
 psql "host=pgakubicharm.postgres.database.azure.com port=5432 dbname=$DBNAME user=myadmin password=$PASSWORD sslmode=require" -f init.sql
 ```
 
-* Dockerfile
+Dockerfile
 ```
 FROM alpine:latest
 
@@ -131,7 +131,6 @@ Param(
  [string]$resourceGroup,
  [string]$ACIName,
 )
-
 ```
 
 ## スケジュール設定
@@ -150,7 +149,7 @@ AutomateアカウントでRunbookを選択し、リソースセクションか�
 
 
 実行中
-[images/dataload_job_running.png	]
+[images/dataload_job_running.png]
 
 実行後
 [images/dataload_job_finish.png	]
