@@ -4,7 +4,7 @@
 Azure Container Instanceは、単体でコンテナを簡単に実行することができるPaaSサービスです。
 Web App For ContainersなどはWebアプリケーション用のPaaSサービスですが、Azure Container InstaneはHTTP(S)外のプロトコルでのアクセスや、バックグラウンドジョブなどにも利用することができます。
 
-今回は、Azure Database for Postgresqlにデータをロードするためのスクリプトを実行するコンテナアプリをAzure Container Instanceにデプロイし、Azure Automateでスケジュール実行していきます。
+Azure Database for Postgresqlにデータをロードするためのスクリプトを実行するコンテナアプリをAzure Container Instanceにデプロイし、Azure Automateでスケジュール実行する設定の備忘録です。
 
 
 ## Azure Database for Postgresqlの準備
@@ -82,30 +82,39 @@ az container create \
 ```
 
 
-## Azure Automateの準備
+## Automationアカウントの準備
+
+### Automationアカウントの作成
 
 1. Azure PortalでAutomateアカウントを選択
+
+Azureポータルの検索フィールドで「Automation」入力しAutomationアカウントを検索します。
 ![](images/marketplace_automate.png)
+
+Automationアカウント画面で「+作成」を選択し、Automationアカウントを作成します。
 ![](images/automate_account_create.png)
 
 2. 基本設定
+
 リソースグループ、Automationアカウント名を設定します。
 ![](images/automate_create_basic.png)
 
 
 3. 詳細設定
+
 マネージドIDを利用するにチェックします。
 ![](images/automate_create_managedid.png)
 
-あとは、必要に応じてネットワークの設定などをしたら「確認および作成」で入力内容を確認後、Automateアカウントを作成します。
+あとは、必要に応じてネットワークの設定などをしたら「確認および作成」で入力内容を確認後、Automationアカウントを作成します。
 
 
-## RunBookの作成
+### RunBookの作成
+
 Automateアカウントのメニューでプロセスオートメーションのセクションから「Runbook」を選択し「+Runbookの作成」をクリックして、Runbookの作成をします。
 ![Runbook作成](images/runbook_addrunbook.png)
 
 
-マネージドIDでログイン後、データローダのAzure Container Instanceを実行
+マネージドIDでログイン後、データローダのAzure Container Instanceを実行するRunbookを作成します。
 
 ```
  # 以前のログイン情報をこのRunbookに反映させないようにする。
@@ -135,7 +144,9 @@ Param(
 )
 ```
 
-## スケジュール設定
+
+## スケジュール実行
+### スケジュール設定
 Runbookのスケジュールで一回だけ実行や定期的な実行を設定することができます。
 
 AutomateアカウントでRunbookを選択して、リソースセクションから「スケジュール」を選択します。
@@ -146,7 +157,7 @@ AutomateアカウントでRunbookを選択して、リソースセクション�
 ![スケジュール入力](images/runbook_newschedule.png)
 
 
-## スケジュール実行の確認
+### スケジュール実行の確認
 AutomateアカウントでRunbookを選択し、リソースセクションから「ジョブ」を選択します。
 
 
