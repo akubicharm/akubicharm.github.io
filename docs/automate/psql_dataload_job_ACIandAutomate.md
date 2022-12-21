@@ -85,24 +85,24 @@ az container create \
 ## Azure Automateの準備
 
 1. Azure PortalでAutomateアカウントを選択
-(images/marketplace_automate.png)
-(images/automate_account_create.png)
+![](images/marketplace_automate.png)
+![](images/automate_account_create.png)
 
 2. 基本設定
 リソースグループ、Automationアカウント名を設定します。
-(images/automate_create_basic.png)
+![](images/automate_create_basic.png)
 
 
 3. 詳細設定
 マネージドIDを利用するにチェックします。
-(images/automate_create_managedid.png)
+![](images/automate_create_managedid.png)
 
 あとは、必要に応じてネットワークの設定などをしたら「確認および作成」で入力内容を確認後、Automateアカウントを作成します。
 
 
 ## RunBookの作成
 Automateアカウントのメニューでプロセスオートメーションのセクションから「Runbook」を選択し「+Runbookの作成」をクリックして、Runbookの作成をします。
-(images/runbook_addrunbook.png)
+![Runbook作成](images/runbook_addrunbook.png)
 
 
 マネージドIDでログイン後、データローダのAzure Container Instanceを実行
@@ -139,11 +139,11 @@ Param(
 Runbookのスケジュールで一回だけ実行や定期的な実行を設定することができます。
 
 AutomateアカウントでRunbookを選択して、リソースセクションから「スケジュール」を選択します。
-(images/runbook_schedule.png)
+![スケジュール追加](images/runbook_schedule.png)
 
 
 新しいスケジュールで実施時間や、繰り返しの指定をします。
-(images/runbook_newschedule.png)
+![スケジュール入力](images/runbook_newschedule.png)
 
 
 ## スケジュール実行の確認
@@ -151,7 +151,7 @@ AutomateアカウントでRunbookを選択し、リソースセクションか�
 
 
 実行中
-(images/dataload_job_running.png)
+![スケジュール実行中](images/dataload_job_running.png)
 
 実行後
-(images/dataload_job_finish.png)
+![スケジュール実行後](images/dataload_job_finish.png)
