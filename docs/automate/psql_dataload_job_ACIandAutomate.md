@@ -1,4 +1,4 @@
-# Azure AutomateとAzure Container Instanceを使ってPostgresqlへのデータロードの実行
+# AutomationアカウントとAzure Container Instanceを使ってPostgresqlへのデータロードの実行
 
 
 Azure Container Instanceは、単体でコンテナを簡単に実行することができるPaaSサービスです。
