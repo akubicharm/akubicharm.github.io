@@ -27,7 +27,8 @@ psqlコマンドでの接続方法は、AzureポータルのAzure Database for P
 * ./tool/dataLoad.sh
 
 
-``` init.sql
+* init.sql
+```
 create table if not exists todo_item (
   id serial primary key,
   description varchar(128),
@@ -38,6 +39,7 @@ create table if not exists todo_item (
 insert into todo_item (description, title, finished) values('desc', 'title', false);
 ```
 
+* dataLoad.sh
 ``` 
 #!/bin/sh
 DBNAME=[DB名]
@@ -46,7 +48,7 @@ PASSWORD=[パスワード]
 psql "host=pgakubicharm.postgres.database.azure.com port=5432 dbname=$DBNAME user=myadmin password=$PASSWORD sslmode=require" -f init.sql
 ```
 
-
+* Dockerfile
 ```
 FROM alpine:latest
 
@@ -65,3 +67,95 @@ CMD ["./dataLoad.sh"]
 ACR_NAME=myacr
 az acr build -t psql/dataload:automate -r $ACR_NAME --platform linux .
 ```
+
+コンテナイメージが準備できあたら、Azure Container Instanceをデプロイします。
+```
+az container create \
+--resource-group postgresql \
+--name dataload \
+--image akubicharm.azurecr.io/psql/dataload:automate 
+--registry-login-server akubicharm.azurecr.io 
+--registry-password XXXXX
+--registry-username akubicharm
+```
+
+
+## Azure Automateの準備
+
+1. Azure PortalでAutomateアカウントを選択
+[images/marketplace_automate.png]
+[images/automate_account_create.png]
+
+2. 基本設定
+リソースグループ、Automationアカウント名を設定します。
+[images/automate_create_basic.png]
+
+
+3. 詳細設定
+マネージドIDを利用するにチェックします。
+[images/automate_create_managedid.png]
+
+あとは、必要に応じてネットワークの設定などをしたら「確認および作成」で入力内容を確認後、Automateアカウントを作成します。
+
+
+## RunBookの作成
+Automateアカウントのメニューでプロセスオートメーションのセクションから「Runbook」を選択し「+Runbookの作成」をクリックして、Runbookの作成をします。
+[images/runbook_addrunbook.png]
+
+
+マネージドIDでログイン後、データローダのAzure Container Instanceを実行
+
+```
+# 以前のログイン情報をこのRunbookに反映させないようにする。
+Disable-AzContextAutosave –Scope Process
+
+
+# Connect using a Managed Service Identity
+try {
+        $AzureContext = (Connect-AzAccount -Identity).context
+    }
+catch{
+        Write-Output "There is no system-assigned user identity. Aborting."; 
+        exit
+    }
+
+Start-AzContainerGroup `
+		-ResourceGroupName postgresql `
+		-Name dataload
+```
+
+リソースグループなどをパラメータで渡したい場合には、以下のようにスクリプトの先頭でパラメータを宣言しておけば、外部からリソースグループやACI名を設定することができます。
+
+```
+Param(
+ [string]$resourceGroup,
+ [string]$ACIName,
+)
+
+```
+
+## スケジュール設定
+Runbookのスケジュールで一回だけ実行や定期的な実行を設定することができます。
+
+AutomateアカウントでRunbookを選択して、リソースセクションから「スケジュール」を選択します。
+[images/runbook_schedule.png]
+
+
+新しいスケジュールで実施時間や、繰り返しの指定をします。
+[images/runbook_newschedule.png]
+
+
+## スケジュール実行の確認
+AutomateアカウントでRunbookを選択し、リソースセクションから「ジョブ」を選択します。
+
+
+実行中
+[images/dataload_job_running.png	]
+
+実行後
+[images/dataload_job_finish.png	]
+
+
+
+
+
