@@ -28,6 +28,7 @@ psqlコマンドでの接続方法は、AzureポータルのAzure Database for P
 
 
 init.sql
+
 ```
 create table if not exists todo_item (
   id serial primary key,
@@ -40,6 +41,7 @@ insert into todo_item (description, title, finished) values('desc', 'title', fal
 ```
 
 dataLoad.sh
+
 ``` 
 #!/bin/sh
 DBNAME=[DB名]
@@ -106,20 +108,20 @@ Automateアカウントのメニューでプロセスオートメーションの
 マネージドIDでログイン後、データローダのAzure Container Instanceを実行
 
 ```
-# 以前のログイン情報をこのRunbookに反映させないようにする。
-Disable-AzContextAutosave –Scope Process
+ # 以前のログイン情報をこのRunbookに反映させないようにする。
+ Disable-AzContextAutosave –Scope Process
 
 
-# Connect using a Managed Service Identity
-try {
+ # Connect using a Managed Service Identity
+ try {
         $AzureContext = (Connect-AzAccount -Identity).context
     }
-catch{
+ catch{
         Write-Output "There is no system-assigned user identity. Aborting."; 
         exit
     }
 
-Start-AzContainerGroup `
+ Start-AzContainerGroup `
 		-ResourceGroupName postgresql `
 		-Name dataload
 ```
